@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Paycard createPayment should create a payment successfully 1`] = `
+{
+  "delete": [],
+  "get": [],
+  "head": [],
+  "link": [],
+  "list": [],
+  "options": [],
+  "patch": [],
+  "post": [
+    {
+      "baseURL": "https://mapaycard.com",
+      "data": "{"c":"test-api-key","paycard-amount":100,"paycard-description":"Test payment","paycard-operation-reference":"test-ref","paycard-callback-url":"https://example.com/callback","paycard-auto-redirect":"on","paycard-redirect-with-get":"off","paycard-jump-to-paycard":"on"}",
+      "env": {
+        "Blob": [Function],
+        "FormData": [Function],
+      },
+      "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      "maxBodyLength": -1,
+      "maxContentLength": -1,
+      "method": "post",
+      "timeout": 0,
+      "transformRequest": [
+        [Function],
+      ],
+      "transformResponse": [
+        [Function],
+      ],
+      "transitional": {
+        "clarifyTimeoutError": false,
+        "forcedJSONParsing": true,
+        "silentJSONParsing": true,
+      },
+      "url": "/epay/create",
+      "validateStatus": [Function],
+      "xsrfCookieName": "XSRF-TOKEN",
+      "xsrfHeaderName": "X-XSRF-TOKEN",
+    },
+  ],
+  "put": [],
+  "unlink": [],
+}
+`;
+
+exports[`Paycard createPayment should create a payment successfully 2`] = `
+{
+  "code": 0,
+  "operation_reference": "test-ref",
+  "payment_amount": 100,
+  "payment_description": "Test payment",
+  "payment_url": "http://example.com/payment",
+}
+`;
+
+exports[`Paycard createPayment should throw an error if API call fails 1`] = `"API call failed: Network Error"`;
+
+exports[`Paycard createPayment should throw an error if amount is less than or equal to 0 1`] = `"Amount must be greater than 0"`;
+
+exports[`Paycard createPayment should throw an error if callbackUrl is invalid 1`] = `"Callback URL must be a valid URL"`;
+
+exports[`Paycard createPayment should throw an error if paycard response code is not 0 1`] = `"API call failed: Unknown error"`;
+
+exports[`Paycard getPaymentStatus should get payment status successfully 1`] = `
+{
+  "delete": [],
+  "get": [
+    {
+      "baseURL": "https://mapaycard.com",
+      "data": undefined,
+      "env": {
+        "Blob": [Function],
+        "FormData": [Function],
+      },
+      "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      "maxBodyLength": -1,
+      "maxContentLength": -1,
+      "method": "get",
+      "timeout": 0,
+      "transformRequest": [
+        [Function],
+      ],
+      "transformResponse": [
+        [Function],
+      ],
+      "transitional": {
+        "clarifyTimeoutError": false,
+        "forcedJSONParsing": true,
+        "silentJSONParsing": true,
+      },
+      "url": "/epay/test-api-key/test-ref/status",
+      "validateStatus": [Function],
+      "xsrfCookieName": "XSRF-TOKEN",
+      "xsrfHeaderName": "X-XSRF-TOKEN",
+    },
+  ],
+  "head": [],
+  "link": [],
+  "list": [],
+  "options": [],
+  "patch": [],
+  "post": [],
+  "put": [],
+  "unlink": [],
+}
+`;
+
+exports[`Paycard getPaymentStatus should get payment status successfully 2`] = `
+{
+  "code": 0,
+  "ecommerce_description": "Test payment",
+  "error_message": "",
+  "payment_amount": "100",
+  "payment_amount_formatted": "100",
+  "reference": "test-ref",
+  "status": "SUCCESS",
+  "status_description": "Payment successful",
+}
+`;
+
+exports[`Paycard getPaymentStatus should throw an error if API call fails 1`] = `"API call failed: Network Error"`;
+
+exports[`Paycard getPaymentStatus should throw an error if paycard response code is not 0 1`] = `"API call failed: Unknown error"`;
