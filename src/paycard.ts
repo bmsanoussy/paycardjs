@@ -24,8 +24,10 @@ class Paycard {
         if(createPaymentRequest.callbackUrl && !isValidUrl(createPaymentRequest.callbackUrl)) {
             throw new PaymentError('Callback URL must be a valid URL', PaymentErrorType.INVALID_CALBACK_URL);
         }
+
+        let response;
         try {
-            const response = await this.client.post('/epay/create', {
+            response = await this.client.post('/epay/create', {
                 c: this.apiKey,
                 'paycard-amount': createPaymentRequest.amount,
                 'paycard-description': createPaymentRequest.description || null,
@@ -34,18 +36,20 @@ class Paycard {
                 'paycard-auto-redirect': createPaymentRequest.autoRedirect ? 'on' : 'off',
                 'paycard-redirect-with-get': createPaymentRequest.redirectWithGet ? 'on' : 'off',
                 ...(createPaymentRequest.paymentMethod === PaymentMethod.PAYCARD && { 'paycard-jump-to-paycard': "on" }),
-                ...(createPaymentRequest.paymentMethod === PaymentMethod.CREDIT_CARD && { 'paycard-jump-to-paycard': "on" }),
-                ...(createPaymentRequest.paymentMethod === PaymentMethod.ORANGE_MONEY && { 'paycard-jump-to-paycard': "on" }),
-                ...(createPaymentRequest.paymentMethod === PaymentMethod.MOMO && { 'paycard-jump-to-paycard': "on" }),
+                ...(createPaymentRequest.paymentMethod === PaymentMethod.CREDIT_CARD && { 'paycard-jump-to-cc': "on" }),
+                ...(createPaymentRequest.paymentMethod === PaymentMethod.ORANGE_MONEY && { 'paycard-jump-to-om': "on" }),
+                ...(createPaymentRequest.paymentMethod === PaymentMethod.MOMO && { 'paycard-jump-to-momo': "on" }),
             });
-            const data: CreatePaymentResponse = response.data;
-            if(data.code !== 0) {
-                throw new PaymentError(response.error_message || 'Unknown error', PaymentErrorType.PAYCAR_ERROR);
-            }
-            return data;
+            
         } catch (error: any) {
             throw new PaymentError(`API call failed: ${error.message}`);
         }
+
+        const data: CreatePaymentResponse = response.data;
+        if(data.code !== 0) {
+            throw new PaymentError(data.error_message || 'Unknown error', PaymentErrorType.PAYCAR_ERROR);
+        }
+        return data;
     }
 
     async getPaymentStatus(reference: string): Promise<PaymentStatusResponse> {

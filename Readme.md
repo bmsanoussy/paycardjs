@@ -25,6 +25,8 @@ npm install paycardjs
 
 ## Usage
 
+You can find an example of the library's use in [javascript](src/tests/paycard.manual-test.js) and [typescript](src/tests/paycard.manual-test.ts)
+
 ### initialize the library
 
 Instantiate a payment with your Paycard API_KEY

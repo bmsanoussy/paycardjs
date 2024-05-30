@@ -63,7 +63,7 @@ exports[`Paycard createPayment should throw an error if amount is less than or e
 
 exports[`Paycard createPayment should throw an error if callbackUrl is invalid 1`] = `"Callback URL must be a valid URL"`;
 
-exports[`Paycard createPayment should throw an error if paycard response code is not 0 1`] = `"API call failed: Unknown error"`;
+exports[`Paycard createPayment should throw an error if paycard response code is not 0 1`] = `"Invalid amount"`;
 
 exports[`Paycard getPaymentStatus should get payment status successfully 1`] = `
 {
