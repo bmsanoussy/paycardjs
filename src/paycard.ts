@@ -40,7 +40,6 @@ class Paycard {
                 ...(createPaymentRequest.paymentMethod === PaymentMethod.ORANGE_MONEY && { 'paycard-jump-to-om': "on" }),
                 ...(createPaymentRequest.paymentMethod === PaymentMethod.MOMO && { 'paycard-jump-to-momo': "on" }),
             });
-            
         } catch (error: any) {
             throw new PaymentError(`API call failed: ${error.message}`);
         }
@@ -53,16 +52,18 @@ class Paycard {
     }
 
     async getPaymentStatus(reference: string): Promise<PaymentStatusResponse> {
+        let response;
         try {
-            const response = await this.client.get(`/epay/${this.apiKey}/${reference}/status`);
-            const data: PaymentStatusResponse = response.data;
-            if(data.code !== 0) {
-                throw new PaymentError(response.error_message || 'Unknown error', PaymentErrorType.PAYCAR_ERROR);
-            }
-            return data;
+            response = await this.client.get(`/epay/${this.apiKey}/${reference}/status`);
         } catch (error: any) {
             throw new PaymentError(`API call failed: ${error.message}`);
         }
+
+        const data: PaymentStatusResponse = response.data;
+        if(data.code !== 0) {
+            throw new PaymentError(response.error_message || 'Unknown error', PaymentErrorType.PAYCAR_ERROR);
+        }
+        return data;
     }
 }
 
