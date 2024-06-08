@@ -1,6 +1,6 @@
 {
   "name": "paycardjs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Paycardjs is a Node.js library for creating and managing payments using the Paycard API. This library provides an easy-to-use interface for integrating Paycard payment functionality into your Node.js applications.",
   "main": "dist/index.js",
   "scripts": {
